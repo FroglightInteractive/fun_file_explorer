@@ -1,0 +1,262 @@
+[gd_scene load_steps=14 format=3 uid="uid://cqphsrsy1guta"]
+
+[ext_resource type="FontFile" uid="uid://brrvdl85srjkn" path="res://GNF.ttf" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://cwgmsuxdcwkw4" path="res://file_container.gd" id="2_0xm2m"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_1bvp3"]
+font = ExtResource("1_ig7tw")
+font_size = 48
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ig7tw"]
+bg_color = Color(0.14117648, 0.12941177, 0.20392157, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9137255, 0.5529412, 0.19215687, 1)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ig7tw"]
+content_margin_left = 10.0
+content_margin_top = 5.0
+content_margin_right = 10.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_0xm2m"]
+font = ExtResource("1_ig7tw")
+font_size = 18
+
+[sub_resource type="LabelSettings" id="LabelSettings_h2yge"]
+font = ExtResource("1_ig7tw")
+font_size = 14
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0xm2m"]
+bg_color = Color(0.14117648, 0.12941177, 0.20392157, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9137255, 0.5529412, 0.19215687, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h2yge"]
+bg_color = Color(0.097919665, 0.08869148, 0.14703268, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.7512551, 0.43661377, 0.096929185, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1bvp3"]
+bg_color = Color(0.22191975, 0.20562848, 0.30936426, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9698376, 0.6344879, 0.33084765, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ig7tw"]
+font = ExtResource("1_ig7tw")
+font_size = 18
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_0xm2m"]
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_ig7tw"]
+color = Color(0.9098039, 0.5529412, 0.21960784, 1)
+thickness = 2
+
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.14117648, 0.12941177, 0.20392157, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 6
+text = "File Explorer"
+label_settings = SubResource("LabelSettings_1bvp3")
+horizontal_alignment = 1
+
+[node name="PathPanel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 75)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+theme_override_styles/panel = SubResource("StyleBoxFlat_ig7tw")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PathPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PathPanel/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+text = "Path:"
+label_settings = SubResource("LabelSettings_0xm2m")
+
+[node name="PathLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PathPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
+text = "/home/alexander/Desktop"
+label_settings = SubResource("LabelSettings_h2yge")
+vertical_alignment = 1
+autowrap_mode = 3
+text_overrun_behavior = 3
+
+[node name="FolderUp" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PathPanel"]
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -33.0
+offset_bottom = 23.0
+grow_horizontal = 0
+size_flags_horizontal = 3
+tooltip_text = "Open File"
+focus_mode = 0
+theme_override_fonts/font = ExtResource("1_ig7tw")
+theme_override_font_sizes/font_size = 24
+theme_override_styles/normal = SubResource("StyleBoxFlat_0xm2m")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_h2yge")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1bvp3")
+theme_override_styles/focus = SubResource("StyleBoxFlat_0xm2m")
+text = "Folder Up"
+
+[node name="Search&FilterPanel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ig7tw")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/Search&FilterPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/Search&FilterPanel/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="SearchTitle" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Search&FilterPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Search:"
+label_settings = SubResource("LabelSettings_ig7tw")
+
+[node name="SearchLine" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/Search&FilterPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ig7tw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0xm2m")
+placeholder_text = "Filename"
+context_menu_enabled = false
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer/Search&FilterPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ig7tw")
+
+[node name="FilterTitle" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/Search&FilterPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Filter:"
+label_settings = SubResource("LabelSettings_ig7tw")
+
+[node name="FilterLine" type="LineEdit" parent="MarginContainer/VBoxContainer/HBoxContainer/Search&FilterPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_ig7tw")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_0xm2m")
+placeholder_text = "File exts. (no period) separated by comma"
+context_menu_enabled = false
+
+[node name="FavoritesPanel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 150)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_ig7tw")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/FavoritesPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/FavoritesPanel/MarginContainer"]
+layout_mode = 2
+
+[node name="FavoritesTitle" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/FavoritesPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Favorites:"
+label_settings = SubResource("LabelSettings_ig7tw")
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer/HBoxContainer/FavoritesPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ig7tw")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/FavoritesPanel/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/FavoritesPanel/MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSeparator" type="HSeparator" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_ig7tw")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="FileContainer" type="HFlowContainer" parent="MarginContainer/VBoxContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource("2_0xm2m")
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PathPanel/FolderUp" to="MarginContainer/VBoxContainer/ScrollContainer/FileContainer" method="_on_folder_up_pressed"]

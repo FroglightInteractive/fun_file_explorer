@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdpxbcgy5p5mp"]
+
+[ext_resource type="FontFile" uid="uid://brrvdl85srjkn" path="res://GNF.ttf" id="1_vm353"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlmha"]
+bg_color = Color(0.14117648, 0.12941177, 0.20392157, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.9137255, 0.5529412, 0.19215687, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_pk6f2"]
+font = ExtResource("1_vm353")
+font_size = 12
+
+[node name="CustomTooltip" type="PanelContainer"]
+custom_minimum_size = Vector2(50, 25)
+offset_right = 43.0
+offset_bottom = 15.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_jlmha")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 2
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 1
+label_settings = SubResource("LabelSettings_pk6f2")
+vertical_alignment = 1
