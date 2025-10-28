@@ -1,6 +1,7 @@
 extends HFlowContainer
 
 @onready var path_label: Label = $"../../HBoxContainer/VBoxContainer/PathPanel/VBoxContainer/PathLabel"
+@onready var favorites_container: VBoxContainer = $"../../HBoxContainer/FavoritesPanel/MarginContainer/VBoxContainer/ScrollContainer/VBoxContainer"
 
 var current_path: String
 var search_term: String = ""
@@ -118,7 +119,22 @@ func _on_folder_up_pressed() -> void:
 
 
 func _on_file_favorite_pressed(filename: String) -> void:
-	print("favorite: " + filename)
+	var favorite_panel = preload("res://Panels/FavoritePanel/favorite_panel.tscn").instantiate()
+	favorites_container.add_child(favorite_panel)
+	favorite_panel.set_filename(filename)
+	favorite_panel.set_filepath(current_path + "/" + filename)
+	favorite_panel.open_pressed.connect(_on_favorite_panel_open_pressed.bind(favorite_panel))
+	favorite_panel.delete_pressed.connect(_on_favorite_panel_delete_pressed.bind(favorite_panel))
+
+
+func _on_favorite_panel_open_pressed(panel: PanelContainer) -> void:
+	var path = panel.get_filepath()
+	if path != "":
+		OS.shell_open(path)
+
+
+func _on_favorite_panel_delete_pressed(panel: PanelContainer) -> void:
+	panel.queue_free()
 
 
 func _on_search_line_text_changed(new_text: String) -> void:
