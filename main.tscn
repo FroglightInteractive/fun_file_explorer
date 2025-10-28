@@ -1,7 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cqphsrsy1guta"]
+[gd_scene load_steps=16 format=3 uid="uid://cqphsrsy1guta"]
 
 [ext_resource type="FontFile" uid="uid://brrvdl85srjkn" path="res://GNF.ttf" id="1_ig7tw"]
 [ext_resource type="Script" uid="uid://cwgmsuxdcwkw4" path="res://file_container.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://bdhx7fac6lone" path="res://path_label.gd" id="2_1bvp3"]
+[ext_resource type="Script" uid="uid://clsgrvyxbvsnm" path="res://Panels/FilePanel/file_panel_button.gd" id="2_h2yge"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_1bvp3"]
 font = ExtResource("1_ig7tw")
@@ -126,18 +128,21 @@ grow_vertical = 2
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PathPanel/VBoxContainer"]
 layout_mode = 2
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
-text = "Path:"
+text = "Current Location:"
 label_settings = SubResource("LabelSettings_0xm2m")
 
 [node name="PathLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PathPanel/VBoxContainer"]
+custom_minimum_size = Vector2(100, 10)
 layout_mode = 2
 size_flags_vertical = 3
+mouse_filter = 1
 theme_override_styles/normal = SubResource("StyleBoxEmpty_ig7tw")
 text = "/home/alexander/Desktop"
 label_settings = SubResource("LabelSettings_h2yge")
 vertical_alignment = 1
 autowrap_mode = 3
 text_overrun_behavior = 3
+script = ExtResource("2_1bvp3")
 
 [node name="FolderUp" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PathPanel"]
 custom_minimum_size = Vector2(150, 0)
@@ -149,7 +154,7 @@ offset_left = -33.0
 offset_bottom = 23.0
 grow_horizontal = 0
 size_flags_horizontal = 3
-tooltip_text = "Open File"
+tooltip_text = "Go up a folder"
 focus_mode = 0
 theme_override_fonts/font = ExtResource("1_ig7tw")
 theme_override_font_sizes/font_size = 24
@@ -158,6 +163,7 @@ theme_override_styles/pressed = SubResource("StyleBoxFlat_h2yge")
 theme_override_styles/hover = SubResource("StyleBoxFlat_1bvp3")
 theme_override_styles/focus = SubResource("StyleBoxFlat_0xm2m")
 text = "Folder Up"
+script = ExtResource("2_h2yge")
 
 [node name="Search&FilterPanel" type="Panel" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 150)
@@ -260,3 +266,5 @@ alignment = 1
 script = ExtResource("2_0xm2m")
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/PathPanel/FolderUp" to="MarginContainer/VBoxContainer/ScrollContainer/FileContainer" method="_on_folder_up_pressed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer/Search&FilterPanel/MarginContainer/VBoxContainer/SearchLine" to="MarginContainer/VBoxContainer/ScrollContainer/FileContainer" method="_on_search_line_text_changed"]
+[connection signal="text_changed" from="MarginContainer/VBoxContainer/HBoxContainer/Search&FilterPanel/MarginContainer/VBoxContainer/FilterLine" to="MarginContainer/VBoxContainer/ScrollContainer/FileContainer" method="_on_filter_line_text_changed"]
