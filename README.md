@@ -1,5 +1,7 @@
 # Fun File Explorer
 
+**Note: name is a work-in-progress**
+
 A more game-like file explorer with interesting visuals.
 
 
