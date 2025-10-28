@@ -23,17 +23,36 @@ func load_files(path: String) -> void:
 	var dir = DirAccess.open(path)
 	if dir:
 		dir.list_dir_begin()
+		var files: Array[String] = []
 		var filename = dir.get_next()
 		while filename != "":
+			if filename != "." and filename != "..":
+				files.append(filename)
+			filename = dir.get_next()
+		dir.list_dir_end()
+		
+		# sort files alphabetically
+		files.sort_custom(func(a, b): return a.to_lower() < b.to_lower())
+		
+		# make folders appear before files
+		var sorted_files: Array[String] = []
+		for f in files:
+			if DirAccess.dir_exists_absolute(path + "/" + f):
+				sorted_files.append(f)
+		for f in files:
+			if not DirAccess.dir_exists_absolute(path + "/" + f):
+				sorted_files.append(f)
+		
+		# create file panel for each file
+		for file in sorted_files:
 			var file_button = preload("res://Panels/FilePanel/file_panel.tscn").instantiate()
 			add_child(file_button)
-			file_button.set_filename(filename)
-			file_button.favorite_pressed.connect(_on_file_favorite_pressed.bind(filename))
-			if dir.current_is_dir():
-				file_button.open_pressed.connect(_on_folder_opened.bind(filename))
+			file_button.set_filename(file)
+			file_button.favorite_pressed.connect(_on_file_favorite_pressed.bind(file))
+			if DirAccess.dir_exists_absolute(path + "/" + file):
+				file_button.open_pressed.connect(_on_folder_opened.bind(file))
 			else:
-				file_button.open_pressed.connect(_on_file_opened.bind(filename))
-			filename = dir.get_next()
+				file_button.open_pressed.connect(_on_file_opened.bind(file))
 	else:
 		print("no directory found")
 
