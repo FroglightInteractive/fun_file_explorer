@@ -1,7 +1,6 @@
 # Fun File Explorer
 
 ![](https://img.shields.io/badge/GPL--3.0-red?style=for-the-badge)
-![GDScript](https://img.shields.io/badge/GDScript-%2374267B.svg?style=for-the-badge&logo=godotengine&logoColor=white)
 
 **Note: name is a work-in-progress**
 
