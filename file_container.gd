@@ -11,6 +11,22 @@ var filter_term: String = ""
 func _ready() -> void:
 	set_current_path(OS.get_system_dir(OS.SYSTEM_DIR_DOCUMENTS))
 	load_files(current_path)
+	
+	Globals.load_favorites()
+	for fav in Globals.favorites.keys():
+		var filename = fav
+		var filepath = Globals.favorites[fav]
+		
+		var favorite_panel = preload("res://Panels/FavoritePanel/favorite_panel.tscn").instantiate()
+		favorites_container.add_child(favorite_panel)
+		favorite_panel.set_filename(filename)
+		
+		favorite_panel.set_filepath(filepath)
+		favorite_panel.open_pressed.connect(_on_favorite_panel_open_pressed.bind(favorite_panel))
+		favorite_panel.delete_pressed.connect(_on_favorite_panel_delete_pressed.bind(favorite_panel))
+		
+		if DirAccess.dir_exists_absolute(filepath):
+			favorite_panel.set_color(Color(0.914, 0.553, 0.192))
 
 
 func set_current_path(new_path: String) -> void:
@@ -38,10 +54,10 @@ func load_files(path: String, search: String = "") -> void:
 		filename = dir.get_next()
 	dir.list_dir_end()
 	
-	# Sort alphabetically
+	# sort alphabetically
 	files.sort_custom(func(a, b): return a.to_lower() < b.to_lower())
 
-	# Separate folders and files
+	# separate folders and files
 	var folders: Array[String] = []
 	var regular_files: Array[String] = []
 	for f in files:
@@ -70,16 +86,16 @@ func load_files(path: String, search: String = "") -> void:
 		sorted_files = sorted_files.filter(func(f):
 			var abs_f = path.path_join(f)
 			
-			# Always keep folders visible
+			# always remove folders
 			if DirAccess.dir_exists_absolute(abs_f):
 				return false
 			
-			# Get extension (may be empty string if file has no extension)
+			# get extension (may be empty string if file has no extension)
 			var ext = f.get_extension().to_lower()
 			if ext == "":
 				return false  # files with no extension won't match
 			
-			# Exact or fuzzy match for any listed filter
+			# exact or fuzzy match for any listed filter
 			for flt in filters:
 				if ext == flt or fuzzy_match(ext, flt):
 					return true
@@ -95,8 +111,10 @@ func load_files(path: String, search: String = "") -> void:
 		file_button.favorite_pressed.connect(_on_file_favorite_pressed.bind(file))
 		
 		var abs_path = path.path_join(file)
+		
 		if DirAccess.dir_exists_absolute(abs_path):
 			file_button.open_pressed.connect(_on_folder_opened.bind(file))
+			file_button.set_color(Color(0.914, 0.553, 0.192))
 		else:
 			file_button.open_pressed.connect(_on_file_opened.bind(file))
 
@@ -122,18 +140,35 @@ func _on_file_favorite_pressed(filename: String) -> void:
 	var favorite_panel = preload("res://Panels/FavoritePanel/favorite_panel.tscn").instantiate()
 	favorites_container.add_child(favorite_panel)
 	favorite_panel.set_filename(filename)
-	favorite_panel.set_filepath(current_path + "/" + filename)
+	
+	var path = current_path + "/" + filename
+	
+	favorite_panel.set_filepath(path)
 	favorite_panel.open_pressed.connect(_on_favorite_panel_open_pressed.bind(favorite_panel))
 	favorite_panel.delete_pressed.connect(_on_favorite_panel_delete_pressed.bind(favorite_panel))
+	
+	if DirAccess.dir_exists_absolute(path):
+		favorite_panel.set_color(Color(0.914, 0.553, 0.192))
+	
+	Globals.add_favorite(filename, path)
+	Globals.save_favorites()
 
 
 func _on_favorite_panel_open_pressed(panel: PanelContainer) -> void:
 	var path = panel.get_filepath()
-	if path != "":
+	if path == "":
+		return
+	if DirAccess.dir_exists_absolute(path):
+		set_current_path(path)
+		load_files(path, search_term)
+	else:
 		OS.shell_open(path)
 
 
 func _on_favorite_panel_delete_pressed(panel: PanelContainer) -> void:
+	var filename = panel.get_filename()
+	Globals.remove_favorite(filename)
+	Globals.save_favorites()
 	panel.queue_free()
 
 

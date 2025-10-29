@@ -13,6 +13,10 @@ func set_filename(filename: String) -> void:
 	file_name.tooltip_text = filename
 
 
+func set_color(color: Color) -> void:
+	file_name.modulate = color
+
+
 func _on_open_pressed() -> void:
 	open_pressed.emit()
 

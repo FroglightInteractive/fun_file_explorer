@@ -13,6 +13,14 @@ func set_filename(filename: String) -> void:
 	file_name.tooltip_text = filename
 
 
+func get_filename() -> String:
+	return file_name.text
+
+
+func set_color(color: Color) -> void:
+	file_name.label_settings.font_color = color
+
+
 func set_filepath(new_path: String) -> void:
 	path = new_path
 

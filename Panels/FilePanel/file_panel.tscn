@@ -87,6 +87,7 @@ text = "[ O ]"
 script = ExtResource("3_1c3fl")
 
 [node name="Rename" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Rename File"
@@ -96,6 +97,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0a6vw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_qkdc4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mf2r8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_0a6vw")
+disabled = true
 text = "[ I ]"
 script = ExtResource("3_1c3fl")
 
@@ -113,6 +115,7 @@ text = "[ F ]"
 script = ExtResource("3_1c3fl")
 
 [node name="Delete" type="Button" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 tooltip_text = "Delete File"
@@ -122,6 +125,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_0a6vw")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_qkdc4")
 theme_override_styles/hover = SubResource("StyleBoxFlat_mf2r8")
 theme_override_styles/focus = SubResource("StyleBoxFlat_0a6vw")
+disabled = true
 text = "[ X ]"
 script = ExtResource("3_1c3fl")
 
